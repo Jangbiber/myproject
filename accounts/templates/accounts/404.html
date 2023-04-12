@@ -1,5 +1,17 @@
-{% extends 'base.html' %}
-{% block content %}
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>파이보</title>
+</head>
+<body>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 text-center">
@@ -9,4 +21,5 @@
         </div>
     </div>
 </div>
-{% endblock %}
+</body>
+</html>
