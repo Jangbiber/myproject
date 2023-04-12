@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>블로그 - 목차</h1>
+
+<ul>
+    {% for article in articles %}
+    <li>
+        <a href="/blog/{{ article.pk }}/">
+            {{ article.title }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
