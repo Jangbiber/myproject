@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ profile_user.username }}의 마이페이지</h1>
+
+<p>
+    팔로워: {{ profile_user.fans.count }} | 팔로잉: {{ profile_user.stars.count }}
+</p>
+<!-- 본인한테는 팔로우 버튼 나오면 안됨 -->
+{% if profile_user != request.user %}
+<form action="{% url 'accounts:follow' profile_user.username %}" method="POST">
+    {% csrf_token %}
+    {% if is_following %}
+    <button>언팔로우</button>
+    {% else %}
+    <button>팔로우</button>
+    {% endif %}
+</form>
+{% endif %}
+
+{% include 'accounts/_profile_postings.html' %}
+{% include 'accounts/_profile_replies.html' %}
+
+
+{% if profile_user == request.user %}
+{% include 'accounts/_profile_like_postings.html' %}
+{% endif %}
+
+
+
+{% endblock content %}

@@ -69,3 +69,31 @@ def signout(request):
     logout(request)
     return redirect('blog:posting_index')
 
+@require_safe
+def profile(request, username):
+    # username(컬럼명) = username(var routing 변수명)
+    profile_user = get_object_or_404(User, username=username)
+    is_following = request.user.stars.filter(pk=profile_user.pk).exists()
+
+
+    return render(request, 'accounts/profile.html', {
+        'profile_user': profile_user,
+        'is_following': is_following,
+    })
+
+
+@login_required
+@require_POST
+def follow(request, username):
+    you = get_object_or_404(User, username=username)
+    me = request.user
+    if me == you:
+        return HttpResponseBadRequest('Can not follow yourself')
+    
+    if me.stars.filter(pk=you.pk).exists():
+        me.stars.remove(you)
+    else:
+        me.stars.add(you)
+    # render => 사용자에게 무언가를 보여줄거야
+    # redirect => 사용자를 다른곳으로 보낼거야
+    return redirect('accounts:profile', you.username)
