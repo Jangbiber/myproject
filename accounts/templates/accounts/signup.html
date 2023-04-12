@@ -1,18 +1,5 @@
-
-{% load static %}
-<!doctype html>
-<html lang="ko">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-    <!-- pybo CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <title>파이보</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-4">
@@ -24,21 +11,7 @@
     </div>
     <form method="post" class="post-form">
         {% csrf_token %}
-        {% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}  <!-- 필드 오류를 출력한다. -->
-            <div class="alert alert-danger">
-                <strong>{{ field.label }}</strong>
-                {{ error }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}   <!-- 넌필드 오류를 출력한다. -->
-        <div class="alert alert-danger">
-            <strong>{{ error }}</strong>
-        </div>
-    {% endfor %}
-{% endif %}
+        {% include "form_errors.html" %}
         <div class="form-group">
             <label for="username">사용자 이름</label>
             <input type="text" class="form-control" name="username" id="username"
@@ -62,11 +35,4 @@
         <button type="submit" class="btn btn-primary">생성하기</button>
     </form>
 </div>
-<!-- jQuery JS -->
-<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
-<!-- Bootstrap JS -->
-<script src="{% static 'bootstrap.min.js' %}"></script>
-<!-- 자바스크립트 Start -->
-
-</body>
-</html>
+{% endblock %}
